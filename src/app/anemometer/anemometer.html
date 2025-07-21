@@ -1,0 +1,33 @@
+<!-- anemometer.component.html -->
+<div class="flex flex-col items-center justify-center p-4">
+    <div class="w-full max-w-md mx-auto">
+      <div class="anemometer-container mx-auto">
+        <div class="gauge">
+          <div class="face">
+            <!-- The coil, needle, and pivot are now positioned using Angular's style binding -->
+            <div 
+              class="coil-assembly" 
+              [style.transform]="'translateX(-50%) rotate(' + coilRotation + 'deg)'">
+            </div>
+            <div 
+              class="needle" 
+              [style.transform]="'rotate(' + needleRotation + 'deg)'">
+            </div>
+            <div class="center-pivot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="mt-8 p-6 bg-white rounded-xl shadow-lg text-center">
+      <h2 class="text-lg font-medium text-gray-700">Live Wind Speed</h2>
+      <!-- The speed value is now bound to the speedValue property from the component -->
+      <p class="text-4xl font-bold text-indigo-600 mt-2">
+        <span>{{ speedValue }}</span> MPH
+      </p>
+      <!-- The connection status is also bound to a component property -->
+      <p class="text-sm text-gray-500 mt-2">
+        Status: <span [class.text-green-600]="connectionStatus === 'Live'">{{ connectionStatus }}</span>
+      </p>
+    </div>
+  </div>
