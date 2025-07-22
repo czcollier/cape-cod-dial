@@ -18,16 +18,5 @@
         </div>
       </div>
     </div>
-  
-    <div class="mt-8 p-6 bg-white rounded-xl shadow-lg text-center">
-      <h2 class="text-lg font-medium text-gray-700">Live Wind Speed</h2>
-      <!-- The speed value is now bound to the speedValue property from the component -->
-      <p class="text-4xl font-bold text-indigo-600 mt-2">
-        <span>{{ speedValue }}</span> MPH
-      </p>
-      <!-- The connection status is also bound to a component property -->
-      <p class="text-sm text-gray-500 mt-2">
-        Status: <span [class.text-green-600]="connectionStatus === 'Live'">{{ connectionStatus }}</span>
-      </p>
-    </div>
+
   </div>

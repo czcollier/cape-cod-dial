@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Anemometer } from './anemometer';
+import { AnemometerComponent } from './anemometer';
 
 describe('Anemometer', () => {
-  let component: Anemometer;
-  let fixture: ComponentFixture<Anemometer>;
+  let component: AnemometerComponent;
+  let fixture: ComponentFixture<AnemometerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Anemometer]
+      imports: [AnemometerComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Anemometer);
+    fixture = TestBed.createComponent(AnemometerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
