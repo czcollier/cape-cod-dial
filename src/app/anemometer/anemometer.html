@@ -1,22 +1,28 @@
 <!-- anemometer.component.html -->
-<div class="flex flex-col items-center justify-center p-4">
-    <div class="w-full max-w-md mx-auto">
+<div class="flex flex-col items-center justify-center p-4 w-full">
+    <div class="w-full max-w-2xl mx-auto">
       <div class="anemometer-container mx-auto">
         <div class="gauge">
           <div class="face">
             <!-- The coil, needle, and pivot are now positioned using Angular's style binding -->
             <div 
               class="coil-assembly" 
-              [style.transform]="'translateX(-50%) rotate(' + coilRotation + 'deg)'">
+              [style.transform]="'translateX(-50%) rotate(' + coilRotation() + 'deg)'">
             </div>
             <div 
               class="needle" 
-              [style.transform]="'rotate(' + needleRotation + 'deg)'">
+              [style.transform]="'rotate(' + needleRotation() + 'deg)'">
             </div>
             <div class="center-pivot"></div>
           </div>
         </div>
       </div>
+      
+      <!-- Antique styled info card -->
+      <div class="info-card">
+        <div class="info-label">Wind Speed</div>
+        <div class="info-value">{{ speedValue() }} <span class="text-lg font-normal">MPH</span></div>
+        <div class="info-status">Status: {{ connectionStatus() }}</div>
+      </div>
     </div>
-
   </div>

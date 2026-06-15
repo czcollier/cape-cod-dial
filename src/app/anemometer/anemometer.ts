@@ -1,27 +1,34 @@
 // anemometer.component.ts
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 // Import Firebase SDK functions
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue } from "firebase/database";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 @Component({
   selector: 'app-anemometer',
   templateUrl: './anemometer.html',
-  styleUrls: ['./anemometer.css']
+  styleUrls: ['./anemometer.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AnemometerComponent implements OnInit {
 
-  // Component properties to hold the dynamic values for the view
-  public speedValue: string = '--';
-  public needleRotation: number = 0;
-  public coilRotation: number = 0;
-  public connectionStatus: string = 'Initializing...';
+  // Component properties to hold the dynamic values for the view (Signals for OnPush)
+  public readonly speedValue = signal<string>('--');
+  public readonly needleRotation = signal<number>(0);
+  public readonly coilRotation = signal<number>(0);
+  public readonly connectionStatus = signal<string>('Initializing...');
   
-  // --- IMPORTANT: PASTE YOUR FIREBASE CONFIGURATION HERE ---
-  // This is safe to have in the frontend code for public, read-only data.
-  private firebaseConfig = {
-      databaseURL: "https://pound-weather-default-rtdb.firebaseio.com/", // Make sure this is your Realtime Database URL
-      appId: "pound-weather"
+  // Full Firebase Web App SDK configuration
+  private readonly firebaseConfig = {
+    projectId: "pound-weather",
+    appId: "1:700016665928:web:373719ebd78265ddf0bf7d",
+    databaseURL: "https://pound-weather-default-rtdb.firebaseio.com",
+    storageBucket: "pound-weather.firebasestorage.app",
+    apiKey: "AIzaSyADhppgF4iPru4MFHhTnOatsqAJsMSHzS8",
+    authDomain: "pound-weather.firebaseapp.com",
+    messagingSenderId: "700016665928",
+    measurementId: "G-BQPX8N03ZH"
   };
 
   // Constants for gauge calculation
@@ -38,33 +45,52 @@ export class AnemometerComponent implements OnInit {
 
   private initializeFirebase(): void {
     try {
-      // Initialize Firebase
+      // Initialize Firebase App
       const app = initializeApp(this.firebaseConfig);
-      const database = getDatabase(app);
+      
+      // Initialize Firebase Auth
+      const auth = getAuth(app);
+      
+      this.connectionStatus.set('Checking credentials...');
 
-      // Define the path to your wind speed data in the Realtime Database
-      const windSpeedRef = ref(database, 'sensors/wind_speed');
-
-      this.connectionStatus = 'Connecting to Firebase...';
-
-      // Set up the listener for real-time data
-      onValue(windSpeedRef, (snapshot) => {
-          const data = snapshot.val();
-          if (data !== null) {
-              this.connectionStatus = 'Live';
-              this.updateGauge(parseFloat(data));
-          } else {
-              this.connectionStatus = 'Waiting for data...';
-              this.speedValue = '--';
-          }
-      }, (error) => {
-          console.error("Firebase read failed:", error);
-          this.connectionStatus = 'Firebase connection error.';
+      // Monitor Auth state changes
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          this.connectionStatus.set('Connecting database...');
+          this.connectDatabase(app);
+        } else {
+          this.connectionStatus.set('Unauthorized. Please sign in.');
+          this.speedValue.set('--');
+        }
       });
 
     } catch (error) {
         console.error("Firebase initialization failed:", error);
-        this.connectionStatus = 'Firebase init failed. Check config.';
+        this.connectionStatus.set('Firebase init failed.');
+    }
+  }
+
+  private connectDatabase(app: any): void {
+    try {
+      const database = getDatabase(app);
+      const windSpeedRef = ref(database, 'sensors/wind_speed');
+
+      onValue(windSpeedRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data !== null) {
+              this.connectionStatus.set('Live');
+              this.updateGauge(parseFloat(data));
+          } else {
+              this.connectionStatus.set('Waiting for data...');
+              this.speedValue.set('--');
+          }
+      }, (error) => {
+          console.error("Firebase database read failed:", error);
+          this.connectionStatus.set('Database read permission denied.');
+      });
+    } catch (error) {
+      console.error("Database connection failed:", error);
+      this.connectionStatus.set('Database connection failed.');
     }
   }
 
@@ -76,8 +102,8 @@ export class AnemometerComponent implements OnInit {
     const clampedSpeed = Math.max(this.MIN_SPEED, Math.min(this.MAX_SPEED, speed));
     const rotation = this.START_ANGLE + (clampedSpeed / this.MAX_SPEED) * this.ANGLE_RANGE;
     
-    this.needleRotation = rotation;
-    this.coilRotation = rotation;
-    this.speedValue = clampedSpeed.toFixed(1);
+    this.needleRotation.set(rotation);
+    this.coilRotation.set(rotation);
+    this.speedValue.set(clampedSpeed.toFixed(1));
   }
 }

@@ -6,6 +6,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:host {
+  display: block;
+  width: 100%;
+}
+
   
   .anemometer-container {
     width: 100%;
@@ -32,6 +37,15 @@
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    /* Dull the bright brass to give it a realistic, aged antique look */
+    filter: sepia(0.08) brightness(0.84) contrast(0.95) saturate(0.88);
+    /* Deeper, more prominent multi-layered drop shadow for mounting depth */
+    box-shadow: 
+      0 35px 70px -15px rgba(0, 0, 0, 0.95),
+      0 20px 40px -10px rgba(0, 0, 0, 0.85),
+      0 8px 20px rgba(0, 0, 0, 0.6),
+      inset 0 2px 4px rgba(255, 255, 255, 0.25),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.5);
   }
   
   .center-pivot {
@@ -58,7 +72,8 @@
     transform-origin: bottom center;
     transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     z-index: 5;
-    box-shadow: 0 0 3px rgba(0,0,7,0.7);
+    /* More prominent offset shadow for a stronger floating look */
+    box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.65);
     border-radius: 2px 2px 0 0;
   }
   
@@ -76,6 +91,8 @@
     transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
     z-index: 4;
     opacity: 0.8;
+    /* Deeper drop shadow for 3D depth */
+    box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.60);
   }
   
   /* Styles for the info box below the gauge */

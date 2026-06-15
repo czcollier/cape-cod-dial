@@ -1,0 +1,21 @@
+{
+  "auth": {
+    "providers": {
+      "anonymous": true
+    }
+  },
+  "hosting": {
+    "public": "dist/myapp/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

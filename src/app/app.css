@@ -1,0 +1,298 @@
+/* app.css */
+
+/* Global container and background (Deep Mahogany Wood Theme) */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(rgba(21, 10, 7, 0.4), rgba(21, 10, 7, 0.5)), url('/mahogany-bg.png') no-repeat center center;
+  background-size: cover;
+  font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+  color: #f5eed7; /* Aged parchment cream */
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* App Header & User Badge */
+.app-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.5rem 2rem;
+  z-index: 50;
+}
+
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(45, 30, 24, 0.85);
+  border: 1.5px solid rgba(212, 175, 55, 0.3);
+  border-radius: 9999px;
+  padding: 6px 6px 6px 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.user-email {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #efebb8; /* Soft brass cream */
+}
+
+.logout-btn {
+  background: rgba(212, 175, 55, 0.1);
+  color: #ffd54f;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: linear-gradient(to bottom, #d4af37 0%, #aa7c11 100%);
+  color: #1c110a;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+}
+
+/* Loading Screen */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(212, 175, 55, 0.1);
+  border-top-color: #ffd54f;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #c5bfae;
+  letter-spacing: 0.05em;
+}
+
+/* Auth Card Layout */
+.auth-card-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 450px;
+  z-index: 10;
+}
+
+.auth-card {
+  width: 100%;
+  background: rgba(26, 17, 13, 0.9); /* Dark mahogany wood/charcoal */
+  border: 2px solid #b89c5a; /* Polished brass border */
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-title {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(to right, #ffffff, #ffe082, #ffd54f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.auth-description {
+  color: #c5bfae;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.action-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Login Card Logo Animation */
+.logo-container {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-dial {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4px dashed rgba(212, 175, 55, 0.4);
+  position: relative;
+  animation: logoRotate 20s linear infinite;
+}
+
+.logo-needle {
+  width: 4px;
+  height: 50%;
+  background: #ffd54f;
+  position: absolute;
+  bottom: 50%;
+  left: calc(50% - 2px);
+  transform-origin: bottom center;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+}
+
+@keyframes logoRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Polished Brass Gold Button */
+.login-btn {
+  background: linear-gradient(to bottom, #d4af37 0%, #aa7c11 100%);
+  color: #1c110a;
+  border: 1px solid #ffeb3b;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+.login-btn:hover {
+  background: linear-gradient(to bottom, #ffd54f 0%, #d4af37 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.6);
+}
+
+.google-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Access Restricted Warning Card */
+.access-denied-card {
+  border-color: #d87d56; /* Copper-amber border */
+  box-shadow: 0 20px 50px rgba(216, 125, 86, 0.15);
+}
+
+.warning-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.access-denied-card .auth-title {
+  background: linear-gradient(to right, #ffd54f, #d87d56);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.access-denied-card .logout-btn {
+  background: linear-gradient(to bottom, #d87d56 0%, #a04e2b 100%);
+  color: #ffffff;
+  border: 1px solid #ff9e7d;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 12px;
+}
+
+.access-denied-card .logout-btn:hover {
+  background: linear-gradient(to bottom, #ff9e7d 0%, #d87d56 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(216, 125, 86, 0.4);
+}
+
+/* Anemometer Dashboard Layout */
+.main {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Antique styled info panel replacing modern white bg-white card */
+.info-card {
+  width: 100%;
+  background: rgba(26, 17, 13, 0.85); /* Mahogany dark wood panel */
+  border: 1.5px solid rgba(184, 156, 90, 0.35); /* Brass accent border */
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+}
+
+.info-label {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #c5bfae; /* Aged silver/cream label */
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.info-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffd54f; /* Bright polished brass */
+  margin-top: 0.5rem;
+  text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.info-status {
+  font-size: 0.875rem;
+  color: #a09a88;
+  margin-top: 0.5rem;
+}
