@@ -1,0 +1,11 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    "sensors": {
+      ".write": "auth != null"
+    },
+    "config": {
+      ".write": "auth != null"
+    }
+  }
+}

@@ -18,11 +18,90 @@
         </div>
       </div>
       
-      <!-- Antique styled info card -->
-      <div class="info-card">
+      <!-- Vintage Location Toggle Switch -->
+      <div class="location-switch-panel">
+        <span class="switch-label left-label" [class.active]="zipCode() === '02129'" (click)="toggleLocation('02129')">
+          Charlestown
+        </span>
+        
+        <div class="brass-switch-container" (click)="toggleLocation(zipCode() === '04576' ? '02129' : '04576')">
+          <div class="brass-switch-plate"></div>
+          <div class="switch-screw left-screw"></div>
+          <div class="switch-screw right-screw"></div>
+          
+          <div class="switch-lever" [class.switched-right]="zipCode() === '04576'">
+            <div class="lever-pivot"></div>
+            <div class="lever-stem"></div>
+            <div class="lever-knob"></div>
+          </div>
+        </div>
+        
+        <span class="switch-label right-label" [class.active]="zipCode() === '04576'" (click)="toggleLocation('04576')">
+          Southport
+        </span>
+      </div>
+      
+      <!-- Antique styled info card (Brass Plaque style) -->
+      <div class="info-card brass-plaque">
+        <div class="plaque-screw top-left"></div>
+        <div class="plaque-screw top-right"></div>
+        <div class="plaque-screw bottom-left"></div>
+        <div class="plaque-screw bottom-right"></div>
+        
         <div class="info-label">Wind Speed</div>
-        <div class="info-value">{{ speedValue() }} <span class="text-lg font-normal">MPH</span></div>
-        <div class="info-status">Status: {{ connectionStatus() }}</div>
+        
+        <div class="odometer-wrapper">
+          <div class="odometer-bezel">
+            <!-- Hundreds Drum -->
+            <div class="odometer-drum">
+              <div class="drum-strip" [style.transform]="getDrumTransform(odometerDigits().hundreds)">
+                @for (char of drumChars; track $index) {
+                  <span class="drum-digit">{{ char }}</span>
+                }
+              </div>
+            </div>
+            
+            <!-- Tens Drum -->
+            <div class="odometer-drum">
+              <div class="drum-strip" [style.transform]="getDrumTransform(odometerDigits().tens)">
+                @for (char of drumChars; track $index) {
+                  <span class="drum-digit">{{ char }}</span>
+                }
+              </div>
+            </div>
+            
+            <!-- Ones Drum -->
+            <div class="odometer-drum">
+              <div class="drum-strip" [style.transform]="getDrumTransform(odometerDigits().ones)">
+                @for (char of drumChars; track $index) {
+                  <span class="drum-digit">{{ char }}</span>
+                }
+              </div>
+            </div>
+            
+            <!-- Static Decimal Separator -->
+            <div class="odometer-separator"></div>
+            
+            <!-- Tenths Drum -->
+            <div class="odometer-drum tenths-drum">
+              <div class="drum-strip" [style.transform]="getDrumTransform(odometerDigits().tenths)">
+                @for (char of drumChars; track $index) {
+                  <span class="drum-digit">{{ char }}</span>
+                }
+              </div>
+            </div>
+            
+            <!-- 3D Shading Glass Overlay -->
+            <div class="odometer-shading-overlay"></div>
+          </div>
+          <span class="odometer-unit-label">MPH</span>
+        </div>
+
+        <div class="plaque-details">
+          <span class="plaque-detail">Status: {{ connectionStatus() }}</span>
+          <span class="plaque-detail">ZIP: {{ zipCode() }}</span>
+          <span class="plaque-detail">Source: {{ dataSource() }}</span>
+        </div>
       </div>
     </div>
   </div>

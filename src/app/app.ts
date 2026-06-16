@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal, effect } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AnemometerComponent } from './anemometer/anemometer';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, signOut, onAuthStateChanged, GoogleAuthProvider, User } from 'firebase/auth';
+import { getDatabase, ref, get } from 'firebase/database';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +19,15 @@ export class App implements OnInit {
   
   private auth: any;
 
-  private readonly ALLOWED_EMAILS = [
-    'czcollier@gmail.com',
-    'czc@google.com'
-  ];
+  constructor() {
+    effect(() => {
+      if (this.isAuthorized() && !this.authLoading()) {
+        document.title = "Cape Cod Dial - Wind Dashboard";
+      } else {
+        document.title = "Access Restricted";
+      }
+    });
+  }
 
   // Full Firebase Web App SDK configuration
   private readonly firebaseConfig = {
@@ -42,13 +48,30 @@ export class App implements OnInit {
     onAuthStateChanged(this.auth, (user) => {
       this.currentUser.set(user);
       if (user) {
-        const email = user.email || '';
-        const authorized = this.ALLOWED_EMAILS.includes(email.toLowerCase());
-        this.isAuthorized.set(authorized);
+        // Query the database allowed_users node to check if the user's email prefix matches any allowed prefix value
+        const db = getDatabase(appInstance);
+        const userAuthRef = ref(db, 'allowed_users');
+        const userPrefix = (user.email || '').split('@')[0].toLowerCase();
+        
+        get(userAuthRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            const allowedPrefixes = typeof data === 'object' && data !== null ? Object.values(data) : [];
+            const isAllowed = allowedPrefixes.some(prefix => typeof prefix === 'string' && prefix.toLowerCase() === userPrefix);
+            this.isAuthorized.set(isAllowed);
+          } else {
+            this.isAuthorized.set(false);
+          }
+          this.authLoading.set(false);
+        }).catch((error) => {
+          console.error("Database authorization lookup failed:", error);
+          this.isAuthorized.set(false);
+          this.authLoading.set(false);
+        });
       } else {
         this.isAuthorized.set(false);
+        this.authLoading.set(false);
       }
-      this.authLoading.set(false);
     });
   }
 

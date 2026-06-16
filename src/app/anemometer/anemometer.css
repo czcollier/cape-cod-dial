@@ -115,4 +115,364 @@
   .flex-col { flex-direction: column; }
   .items-center { align-items: center; }
   .justify-center { justify-content: center; }
+
+/* Antique styled info panel (Brass Plaque style) */
+.info-card {
+  width: 100%;
+  max-width: 440px; /* Reduced width for a better look */
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(135deg, #a88434 0%, #f6e2a3 30%, #c69c3a 50%, #f3de9e 70%, #8b6821 100%);
+  border: 3px double #5c4314;
+  border-radius: 6px; /* Straighter corners for a realistic metal plate */
+  padding: 1.5rem 1.25rem 1.25rem 1.25rem; /* Slightly reduced padding */
+  margin-top: 1.5rem;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.65), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.5),
+              inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  /* Apply a slight aged sepia filter patina like the dial */
+  filter: sepia(0.08) brightness(0.85) contrast(0.95) saturate(0.9);
+}
+
+/* Aged patina scratches and blemishes for vintage metal realism */
+.info-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 4px;
+  opacity: 0.8;
+  background: 
+    /* Extremely thin hairline metallic scratches */
+    linear-gradient(135deg, transparent 49%, rgba(255, 255, 255, 0.08) 49.3%, rgba(40, 30, 10, 0.22) 49.7%, transparent 50%) 20px 35px / 130px 130px repeat,
+    linear-gradient(45deg, transparent 49%, rgba(255, 255, 255, 0.06) 49.3%, rgba(40, 30, 10, 0.18) 49.7%, transparent 50%) 75px 15px / 100px 100px repeat,
+    linear-gradient(170deg, transparent 49%, rgba(255, 255, 255, 0.07) 49.4%, rgba(40, 30, 10, 0.18) 49.8%, transparent 50%) 10px 60px / 150px 150px repeat,
+    /* Patina oxidation spots */
+    radial-gradient(circle at 15% 25%, rgba(25, 35, 10, 0.35) 0%, rgba(25, 35, 10, 0) 3px),
+    radial-gradient(circle at 85% 72%, rgba(45, 32, 5, 0.3) 0%, rgba(45, 32, 5, 0) 5px),
+    radial-gradient(circle at 48% 15%, rgba(35, 28, 5, 0.25) 0%, rgba(35, 28, 5, 0) 4px),
+    radial-gradient(circle at 33% 85%, rgba(40, 48, 18, 0.25) 0%, rgba(40, 48, 18, 0) 6px);
+}
+
+.plaque-screw {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, #7e6328 0%, #2f2105 100%);
+  border-radius: 50%;
+  border: 1px solid #1a1202;
+  box-shadow: 0 1px 1px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Screw slots for realistic engraved metal screws */
+.plaque-screw::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 1px;
+  width: 8px;
+  height: 1.5px;
+  background: #110b01;
+}
+
+.plaque-screw.top-left { top: 10px; left: 10px; transform: rotate(15deg); }
+.plaque-screw.top-right { top: 10px; right: 10px; transform: rotate(115deg); }
+.plaque-screw.bottom-left { bottom: 10px; left: 10px; transform: rotate(45deg); }
+.plaque-screw.bottom-right { bottom: 10px; right: 10px; transform: rotate(210deg); }
+
+.info-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #201708; /* Dark brown engraved text color */
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.odometer-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 12px;
+}
+
+.odometer-bezel {
+  display: flex;
+  align-items: center;
+  background-color: #0c0905;
+  border: 4px solid #483516; /* Aged bronze/brass frame */
+  border-radius: 4px;
+  padding: 2px;
+  position: relative;
+  /* Deep inset shadow to simulate depth */
+  box-shadow: 
+    inset 0 4px 10px rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.25),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.odometer-drum {
+  width: 26px; /* Scaled down from 32px */
+  height: 38px; /* Scaled down from 48px */
+  overflow: hidden;
+  position: relative;
+  background-color: #111111; /* Black drum face */
+  border-right: 1.5px solid #000000;
+}
+
+/* Tenths drum Contrasting Style (Warm Cream background, black text) */
+.tenths-drum {
+  background-color: #f6eed5;
+  border-right: none;
+  width: 26px; /* Scaled down from 32px */
+  height: 38px; /* Scaled down from 48px */
+}
+
+.drum-strip {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.drum-digit {
+  display: block;
+  width: 26px; /* Scaled down from 32px */
+  height: 38px; /* Scaled down from 48px */
+  line-height: 38px; /* Scaled down from 48px */
+  text-align: center;
+  font-family: 'Courier Prime', 'Courier New', Courier, monospace;
+  font-size: 1.75rem; /* Scaled down from 2.25rem */
+  font-weight: 800;
+  color: #eeeeee; /* Off-white for aged dials */
+  user-select: none;
+}
+
+/* Tenths digit coloring */
+.tenths-drum .drum-digit {
+  color: #2c1a04; /* Dark brown on cream */
+}
+
+/* Static separator */
+.odometer-separator {
+  width: 8px; /* Narrower width for closer spacing */
+  margin-left: -2px; /* Pull closer to the ones digit on the left */
+  height: 38px; /* Scaled down from 48px */
+  background-color: #111111;
+  border-right: 1.5px solid #000000;
+  position: relative; /* Relative container for absolute dot positioning */
+  box-sizing: border-box;
+}
+
+.odometer-separator::after {
+  content: '';
+  position: absolute;
+  bottom: 8px; /* Lifted up slightly from the bottom, matching standard decimals */
+  left: 2px; /* Shifted left to stay close to the ones digit */
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #c43e33; /* Aged red decimal point */
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+/* 3D shading overlay to create a cylinder reflection and depth */
+.odometer-shading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  background: linear-gradient(
+    to bottom, 
+    rgba(0, 0, 0, 0.85) 0%, 
+    rgba(0, 0, 0, 0.2) 15%, 
+    rgba(0, 0, 0, 0) 40%, 
+    rgba(0, 0, 0, 0) 60%, 
+    rgba(0, 0, 0, 0.2) 85%, 
+    rgba(0, 0, 0, 0.85) 100%
+  );
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
+}
+
+/* Glass scratches overlay for odometer realism */
+.odometer-shading-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    /* Two faint non-repeating diagonal glass scratches */
+    linear-gradient(115deg, transparent 49%, rgba(255, 255, 255, 0.16) 49.4%, rgba(0, 0, 0, 0.25) 49.8%, transparent 50.2%) 12px 6px / 40px 40px no-repeat,
+    linear-gradient(40deg, transparent 49%, rgba(255, 255, 255, 0.12) 49.4%, rgba(0, 0, 0, 0.2) 49.8%, transparent 50.2%) 32px 14px / 25px 25px no-repeat;
+  opacity: 0.7;
+}
+
+/* Engraved MPH tag to the right of the bezel */
+.odometer-unit-label {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #3b2a0f; /* Engraved bronze */
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+  margin-top: 8px; /* Alignment offset */
+}
+
+.plaque-details {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid rgba(60, 42, 10, 0.15);
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+}
+
+.plaque-detail {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #3b2a0f; /* Engraved look */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* Location Toggle Switch Layout */
+.location-switch-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  user-select: none;
+}
+
+.switch-label {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #7d5e46; /* Blends with mahogany wood bulkhead */
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-shadow: 0 -1.5px 0.5px rgba(0, 0, 0, 0.95), 0 0.5px 0 rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.switch-label.active {
+  color: #ffd54f; /* Glow brass gold */
+  text-shadow: 
+    0 0 10px rgba(255, 213, 79, 0.45),
+    0 -1px 0 rgba(0, 0, 0, 0.8),
+    0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.switch-label:hover {
+  color: #efebb8;
+}
+
+/* Brass plate switch container */
+.brass-switch-container {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.brass-switch-plate {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #7c5c1b 0%, #ecd393 25%, #b48c32 50%, #edd18e 75%, #50390f 100%);
+  border: 1.5px solid #2d1c08;
+  border-radius: 14px; /* Oval backing plate */
+  box-shadow: 
+    0 3px 6px rgba(0, 0, 0, 0.75), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Screw detail on switch plate */
+.switch-screw {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #6c5218 0%, #150f02 100%);
+  border-radius: 50%;
+  border: 0.5px solid #080501;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.switch-screw.left-screw { left: 5px; }
+.switch-screw.right-screw { right: 5px; }
+
+/* 3D lever mechanisms */
+.switch-lever {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%) rotate(-24deg); /* Default angled to the left (Charlestown) */
+  transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1.25);
+  transform-origin: center center;
+  z-index: 20;
+}
+
+.switch-lever.switched-right {
+  transform: translate(-50%, -50%) rotate(24deg); /* Southport position */
+}
+
+/* Lever pivot housing */
+.lever-pivot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, #555 0%, #151515 100%);
+  border: 1px solid #111;
+  border-radius: 50%;
+  box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.85);
+  z-index: 5;
+}
+
+/* Metallic lever stem */
+.lever-stem {
+  position: absolute;
+  width: 3.5px;
+  height: 15px;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, #bdbdbd 0%, #ffffff 50%, #757575 100%);
+  border-radius: 1.5px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.35);
+  z-index: 4;
+}
+
+/* Spherical brass tip knob */
+.lever-knob {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, #fce096 0%, #aa822d 60%, #44300c 100%);
+  border: 0.8px solid #2d1c08;
+  border-radius: 50%;
+  box-shadow: 
+    1.5px 3px 5px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  z-index: 4;
+}
   
