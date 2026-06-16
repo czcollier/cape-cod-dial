@@ -1,2 +1,10 @@
+/* src/styles.css */
 
-
+/* Reset default browser margins and paddings on html/body to allow container background to extend fully */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0e1118; /* Set matching default background color to prevent flash of white */
+}

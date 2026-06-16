@@ -46,8 +46,5 @@ Cape Cod Dial is a modern Angular-based web application that simulates a classic
     - If `"auto"`, checks the time elapsed since the last database update (`sensors/timestamp`). If the last update was more than 5 minutes ago, it assumes the hardware is down and writes the WeatherAPI data as a fallback.
 
 ## Plan for Current Change
-1. **Fetch Parent Node**: Modify `anemometer.ts` to listen to `/sensors` parent object, update wind speed, and check `source` value.
-2. **Add Plaque Layout**: Update `anemometer.html` to add mounting screws and display the connection status and source.
-3. **Engraved Styling**: Define plaque styles in `anemometer.css` rather than `app.css` to comply with Angular's style encapsulation. Adjust the `anyComponentStyle` limits in `angular.json` to allow for the premium styles.
-4. **Compile & Build**: Run `npm run build` to verify the codebase compiles successfully.
-5. **Deploy**: Deploy the optimized production bundle to Firebase Hosting.
+1. **Reset Global Viewport Margins**: Add reset rules for `html` and `body` elements inside `src/styles.css` to remove default browser margins/paddings and allow the background to extend fully to the edges of the viewport.
+2. **Compile & Build**: Run `npm run build` to verify the codebase compiles successfully.
